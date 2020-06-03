@@ -1,0 +1,15 @@
+{
+  "name": "nodejs-redis-cars",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/moraesjeremias/nodejs-redis-cars.git",
+  "author": "moraesjeremias <moraesjeremias@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
