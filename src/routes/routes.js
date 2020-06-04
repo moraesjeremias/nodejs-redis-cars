@@ -3,7 +3,8 @@ const routes = express.Router();
 const redisController = require('../controller/redisController');
 
 routes.get('/status', redisController.status)
-routes.get('/test-debits', redisController.retrieveDebts)
-routes.post('/test-debits', redisController.retrieveDebts)
+routes.get('/test-debts', redisController.retrieveAllDebts)
+routes.post('/test-debts', redisController.retrieveQueriedDebt)
+routes.post('/cached-debts', redisController.chachedDebts)
 
 module.exports = routes;
