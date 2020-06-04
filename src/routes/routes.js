@@ -4,5 +4,6 @@ const redisController = require('../controller/redisController');
 
 routes.get('/status', redisController.status)
 routes.get('/test-debits', redisController.retrieveDebts)
+routes.post('/test-debits', redisController.retrieveDebts)
 
 module.exports = routes;
