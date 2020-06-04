@@ -57,10 +57,10 @@ module.exports = {
     },
 
     findLicensePlate(licensePlateQuery) {
-        const licensePlateFilter = debtsMock.filter(licensePlate => {
-            debtsMock.result.veiculo.placa == licensePlateQuery
-        });
-        return licensePlateFilter
+        const filteredLicensePlate = debtsMock.filter(carro =>
+            carro.result.veiculo.placa == licensePlateQuery
+        );
+        return filteredLicensePlate
     }
 
 }
