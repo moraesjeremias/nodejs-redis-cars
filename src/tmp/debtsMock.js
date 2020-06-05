@@ -1,4 +1,3 @@
-
 const debtsMock = [{
     "status": true,
     "result": {
@@ -49,18 +48,4 @@ const debtsMock = [{
     }
 }]
 
-
-module.exports = {
-
-    find() {
-        return debtsMock
-    },
-
-    findLicensePlate(licensePlateQuery) {
-        const filteredLicensePlate = debtsMock.filter(carro =>
-            carro.result.veiculo.placa == licensePlateQuery
-        );
-        return filteredLicensePlate
-    }
-
-}
+module.exports = debtsMock;

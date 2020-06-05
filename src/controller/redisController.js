@@ -1,8 +1,5 @@
-const fs = require('fs')
-const path = require('path')
 const redis = require('redis');
-const fakeDebts = require('../tmp/debtsMock')
-// const checkVehicleInfo = require('../services/checkVehicleInfo')
+const fakeDebts = require('../services/checkVehicleInfo')
 
 const debitsClient = redis.createClient();
 
@@ -20,13 +17,18 @@ module.exports = {
         })
     },
 
-    chachedDebts(request, response) {
+    chachedDebtsFromRedis(request, response) {
         const { placa, renavam, auth_token } = request.body;
         debitsClient.get(`placa:${placa}`, (err, reply) => {
             if(reply != null){
-                const jsonParsedRedisReply = JSON.parse(reply)
-                console.log('\n Retorno da Consulta no Redis: \n', jsonParsedRedisReply)
-                return response.json(jsonParsedRedisReply)
+                try {
+                    const jsonParsedRedisReply = JSON.parse(reply)
+                    console.log('\n Retorno da Consulta no Redis: \n', jsonParsedRedisReply)
+                    return response.json(jsonParsedRedisReply)
+                } catch (error) {
+                    console.log(err)
+                    return err
+                }
             }else{
                 const databaseDebts = fakeDebts.findLicensePlate(placa,renavam)
                 const stringParsedDbDebts = JSON.stringify(databaseDebts);
