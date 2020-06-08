@@ -18,8 +18,8 @@ module.exports = {
     },
 
     chachedDebtsFromRedis(request, response) {
-        const { placa, renavam, auth_token } = request.body;
-        debitsClient.get(`placa:${placa}`, (err, reply) => {
+        const { placa, renavam, auth_token, uf } = request.body;
+        debitsClient.get(`placa:${placa}:${renavam}:${uf}`, (err, reply) => {
             if(reply != null){
                 try {
                     const jsonParsedRedisReply = JSON.parse(reply)
@@ -30,10 +30,10 @@ module.exports = {
                     return err
                 }
             }else{
-                const databaseDebts = fakeDebts.findLicensePlate(placa,renavam)
+                const databaseDebts = fakeDebts.findLicensePlate(placa,renavam, uf)
                 const stringParsedDbDebts = JSON.stringify(databaseDebts);
                 console.log('\n Retorno da consulta no mock: \n', databaseDebts);
-                debitsClient.setex(`placa:${placa}`, 5, stringParsedDbDebts)
+                debitsClient.setex(`placa:${placa}:${renavam}:${uf}`, 57600, stringParsedDbDebts)
                 return response.json(databaseDebts) 
             }  
         })
@@ -51,9 +51,10 @@ module.exports = {
     },
 
     retrieveQueriedDebt(request, response) {
-        const { placa, renavam } = request.body
+        const { placa, renavam, location } = request.body
+        console.log(placa, renavam, location)
         try {
-            const queriedDebtResult = fakeDebts.findLicensePlate(placa, renavam)
+            const queriedDebtResult = fakeDebts.validateVehicle(placa, renavam, location)
             return response.json(queriedDebtResult)
         } catch (error) {
             console.log(error)
