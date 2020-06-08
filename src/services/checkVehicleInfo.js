@@ -24,6 +24,6 @@ const debtsMock = require('../tmp/debtsMock')
 
     module.exports = {
         find,
-        findLicensePlate: findVehicleInfo,
-        validateVehicle: validateVehicleInfo
+        findVehicleInfo,
+        validateVehicleInfo
     }

@@ -54,7 +54,7 @@ module.exports = {
         const { placa, renavam, location } = request.body
         console.log(placa, renavam, location)
         try {
-            const queriedDebtResult = fakeDebts.validateVehicle(placa, renavam, location)
+            const queriedDebtResult = fakeDebts.validateVehicleInfo(placa, renavam, location)
             return response.json(queriedDebtResult)
         } catch (error) {
             console.log(error)
